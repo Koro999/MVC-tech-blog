@@ -1,0 +1,14 @@
+[
+    {
+      "title": "Thoughts on AI generation",
+      "content": "Contentious topic. As an artist, I can see how powerful AI tools can be, but it does pose a large threat to copyright and illustrators themselves."
+    },
+    {
+      "title": "Training Models",
+      "content": "Use Dreambooth, to train ontop of already existing models, or create custom LORAs in order to pinpoint specific characters or styles."
+    },
+    {
+      "title": "The AI, the VRAM, the Graphics Cards",
+      "content": "Need large amounts of VRAM, use nvidia cards. 3000 series good. "
+    }
+  ]
