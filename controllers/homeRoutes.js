@@ -1,69 +1,69 @@
-const router = require('express').Router();
-const { Post, Comment, User } = require('../models');
-const withAuth = require('../utils/auth');
+const router = require("express").Router();
+const { Post, Comment, User } = require("../models");
+const withAuth = require("../utils/auth");
 
-//Get all projects and JOIN with user data 
-router.get('/', async (req, res) => {
-  try{
+//Get all posts and JOIN with user data
+router.get("/", async (req, res) => {
+  try {
     // grab all information inside post model
     const postData = await Post.findAll({
       include: [
         {
           //grab name from the user model
           model: User,
-          attributes: ['name'],
+          attributes: ["name"],
         },
         {
           //grab user name from the comment model
           model: Comment,
           include: {
             model: User,
-            attributes: ['name'],
+            attributes: ["name"],
           },
         },
       ],
       order: [
         //arrange in order of date created, descending
-        ['date_created', 'DESC'],
-      ]
+        ["date_created", "DESC"],
+      ],
     });
 
     // Serialize data so the template can read it
-    const posts = postData.map((project) => project.get({ plain: true }));
+    const posts = postData.map((post) => project.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      posts, 
-      logged_in: req.session.logged_in 
+    res.render("homepage", {
+      posts,
+      logged_in: req.session.logged_in,
     });
-  } catch(err) {
-    res.status(500).json(err)
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
-//grab posts by id 
-router.get('/post/:id', withAuth, async (req, res) => {
+//grab posts by id
+router.get("/post/:id", withAuth, async (req, res) => {
   try {
-    //grab one from post 
-    const postData = await Post.findByPk(req.params.id, ({
+    //grab one from post
+    const postData = await Post.findByPk(req.params.id, {
       include: [
+        User,
         {
           //grab from User model, include name
-          model: User,
-          include: ['name']
-        }
-      ]
-    })
-    );
+          model: Comment,
+          include: [User],
+        },
+      ],
+      order: [["date_created", "DESC"]],
+    });
 
     //check to see if postData exists, if truthy
     if (postData) {
-
       const post = postData.get({ plain: true });
 
-      res.render('single-post', {
+      res.render("single-post", {
         post,
-        logged_in: req.session.logged_in
+        logged_in: req.session.logged_in,
       });
     } else {
       res.status(404).end();
@@ -73,44 +73,26 @@ router.get('/post/:id', withAuth, async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
-    });
-
-    const user = userData.get({ plain: true });
-
-    res.render('profile', {
-      ...user,
-      logged_in: true
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 //login route
-router.get('/login', (req, res) => {
+router.get("/login", (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect("/dashboard");
     return;
   }
 
-  res.render('login');
+  res.render("login");
 });
 
 //signup route
-router.get('/signup', (req, res) => {
+router.get("/signup", (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
     return;
   }
+  res.render('signup')
 });
 
 module.exports = router;

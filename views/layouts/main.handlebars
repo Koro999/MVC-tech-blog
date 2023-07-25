@@ -34,11 +34,11 @@
                     </li>
                     {{#if logged_in}}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="logout-link nav-link" href="#">Logout</a>
                     </li>
                     {{else}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Logout</a>
+                        <a class="login nav-link text-danger" href="/login ">Login</a>
                     </li>
                     {{/if}}
                 </ul>
@@ -64,5 +64,4 @@
         <!--jQuery-->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </body>
-
 </html>
