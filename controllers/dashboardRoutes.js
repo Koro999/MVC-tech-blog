@@ -38,8 +38,7 @@ router.get('/', withAuth, async (req, res) => {
     // serialize data for template
     const user = userData.get({ plain: true });
     const posts = postData.map((post) => post.get({ plain: true }));
-    
-    // fill in the view to be rendered -DONE!
+
     res.render('all-posts', {
       // specify a different layout
       layout: 'dashboard',
@@ -53,28 +52,29 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 
-// AFTER CLICK ON NEW POST BUTTON
+//new post button
 router.get('/new', withAuth, (req, res) => {
   // what view should we send the client when they want to create a new-post? (change this next line) - DONE!
   res.render('new-post', {
-    // again, rendering with a different layout than main! no change needed
+    // render using the dashboard partial
     layout: 'dashboard',
   });
 });
 
-// WHEN WE CLICK ON THE POST ITSELF
+//click on post 
 router.get('/edit/:id', withAuth, async (req, res) => {
   try {
-    // what should we pass here? we need to get some data passed via the request body -DONE!
+    //grab the post data by primary key, grab id of the post 
     const postData = await Post.findByPk(req.params.id);
 
+    //if post truthy
     if (postData) {
-      // serializing the data
+      // serialize the data 
       const post = postData.get({ plain: true });
-      // which view should we render if we want to edit a post?
+      //render using the dashboard partial
       res.render('edit-post', {
         layout: 'dashboard',
-        post,
+        post
       });
     } else {
       res.status(404).end();
