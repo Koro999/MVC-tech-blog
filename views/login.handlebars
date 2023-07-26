@@ -1,22 +1,41 @@
-<div class="row align-items-centre">
-    <div class="mx-auto col-10 col-md-8 col-lg-6"></div>
-    <form class ="col-4 login-form">
-        <legend>Login</legend>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input type="username" class="form-control" id="username-login" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password-login">
-        </div>
-        <button type="submit" class="submit btn btn-primary">Submit</button>
-        <div class="mb-3">
-            <label for="newUser" class="form-label">New User?</label>
-            <a href="/signup" class="text-danger"> Sign Up </a>
-        </div>
-    </form>
-</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Login</h2>
+        <form class="form login-form">
+            <div class="mb-3 form-group">
+                <label for="email-login" class="form-label">Email:</label>
+                <input class="form-input" type="text" id="email-login" />
+            </div>
+            <div class="mb-3 form-group">
+                <label for="password-login" class="form-label">Password:</label>
+                <input class="form-input" type="password" id="password-login" />
+            </div>
+            <div class="mb-3 form-group">
+                <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
 
-<!--run login script-->
-<script src="/js/login.js"></script>
+    <div class="col-md-6">
+        <h2>Sign-up</h2>
+        <form class="form signup-form">
+            <div class="mb-3">
+                <label for="name-signup">Name:</label>
+                <input class="form-input" type="text" id="name-signup" />
+            </div>
+            <div class="mb-3">
+                <label for="email-signup">Email:</label>
+                <input class="form-input" type="text" id="email-signup" />
+            </div>
+            <div class="mb-3">
+                <label for="password-signup">Password:</label>
+                <input class="form-input" type="password" id="password-signup" />
+            </div>
+            <div class="mb-3 form-group">
+                <button class="btn btn-primary" type="submit">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+    <!--run login script-->
+    <script src="/js/login.js"></script>
