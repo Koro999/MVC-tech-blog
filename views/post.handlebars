@@ -1,0 +1,10 @@
+<div class="card w-75 mb-3">
+    <div class="card-body">
+        <h2 class="card-title">{{post.title}}</h2>
+        <p class="card-text">{{post.content}}</p>
+        <div class="row">
+            <p>Posted by: <span>{{post.user.name}} on {{format_date post.date_created}}</span></p>
+            <!--<a href="#" class="btn btn-primary">comment</a>-->
+        </div>
+    </div>
+</div>
