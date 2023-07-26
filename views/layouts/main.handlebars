@@ -32,36 +32,38 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">Dashboard</a>
                     </li>
+                    <!--IF logged in render logout-->
                     {{#if logged_in}}
                     <li class="nav-item">
                         <a class="logout-link nav-link" href="#">Logout</a>
                     </li>
+                    <!--IF logged out render login-->
                     {{else}}
                     <li class="nav-item">
-                        <a class="login nav-link text-danger" href="/login ">Login</a>
+                        <a class="login nav-link text-danger" href="/login">Login</a>
                     </li>
                     {{/if}}
                 </ul>
             </div>
         </div>
     </nav>
-        <main class="container container-fluid mt-5">
-            <!-- Render the sub layout -->
-            {{{ body }}}
-        </main>
 
-        <footer id="footer" class="fixed-bottom bg-body-tertiary text-center">
-            <div class=" text-center">
-                © 2023 Copyright:
-                <a class="nav-link " href="#"> MVC Tech Blog 2023</a>
-            </div>
-        </footer>
+    <main class="container container-fluid mt-5">
+        <!-- Render the sub layout -->
+        {{{ body }}}
+    </main>
 
-        <!-- Render script for logged in users only -->
-        {{#if logged_in}}
-        <script src="/js/logout.js"></script>
-        {{/if}}
-        <!--jQuery-->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <footer id="footer" class="fixed-bottom bg-body-tertiary text-center">
+        <div class=" text-center">
+            © 2023 Copyright:
+            <a class="nav-link " href="#"> MVC Tech Blog 2023</a>
+        </div>
+    </footer>
+
+    <!-- Render script for logged in users only -->
+    {{#if logged_in}}
+    <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
+
 </html>
