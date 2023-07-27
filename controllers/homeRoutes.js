@@ -74,37 +74,6 @@ router.get("/dashboard", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-/*
-// AFTER CLICK ON NEW POST BUTTON
-router.get('/new', withAuth, (req, res) => {
-  // what view should we send the client when they want to create a new-post? (change this next line) - DONE!
-  res.render('new-post', {
-    // again, rendering with a different layout than main! no change needed
-    layout: 'dashboard',
-  });
-});
-
-// WHEN WE CLICK ON THE POST ITSELF
-router.get('/edit/:id', withAuth, async (req, res) => {
-  try {
-    // what should we pass here? we need to get some data passed via the request body -DONE!
-    const postData = await Post.findByPk(req.params.id);
-
-    if (postData) {
-      // serializing the data
-      const post = postData.get({ plain: true });
-      // which view should we render if we want to edit a post?
-      res.render('edit-post', {
-        layout: 'dashboard',
-        post,
-      });
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
-    res.redirect('login');
-  }
-});*/
 
 //login route
 router.get("/login", (req, res) => {
@@ -125,5 +94,51 @@ router.get("/signup", (req, res) => {
   }
   res.render("signup");
 });
+
+// Update post 
+router.put(':id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    console.log(postData)
+
+    if (!postData[0]) {
+      res.status(404).json({ message: 'No post found with that id!' });
+      return;
+    }
+    res.status(200).json(postData);
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// When we click edit load this route 
+router.get('/edit/:id', withAuth, async (req, res) => {
+  try {
+  
+    const postData = await Post.findByPk(req.params.id);
+
+    if (postData) {
+      // serializing the data
+      const post = postData.get({ plain: true });
+      // which view should we render if we want to edit a post?
+      res.render("edit", {
+        post,
+        logged_in: req.session.logged_in,
+      });
+    } else {
+      res.status(404).end();
+    }
+  } catch (err) {
+    res.redirect('login');
+  }
+});
+
+
 
 module.exports = router;
