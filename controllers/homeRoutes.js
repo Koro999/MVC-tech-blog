@@ -2,10 +2,11 @@ const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
 const withAuth = require("../utils/auth");
 
-//Get all posts and JOIN with user data
+//Get all posts 
 router.get("/",  async (req, res) => {
   try {
     const postData = await Post.findAll({
+      //and join with user data
       include: [
         {
           model: User,
@@ -95,28 +96,6 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// Update post 
-router.put(':id', withAuth, async (req, res) => {
-  try {
-    const postData = await Post.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    console.log(postData)
-
-    if (!postData[0]) {
-      res.status(404).json({ message: 'No post found with that id!' });
-      return;
-    }
-    res.status(200).json(postData);
-
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 // When we click edit load this route 
 router.get('/edit/:id', withAuth, async (req, res) => {
   try {
@@ -126,7 +105,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
     if (postData) {
       // serializing the data
       const post = postData.get({ plain: true });
-      // which view should we render if we want to edit a post?
+
       res.render("edit", {
         post,
         logged_in: req.session.logged_in,
