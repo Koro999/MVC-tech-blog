@@ -1,0 +1,61 @@
+<div class="card flex mx-auto w-75 items-center justify-center mt-12  mb-4 max-w-lg">
+    <div class="card-body">
+        <h2 class="card-title">{{post.title}}</h2>
+        <p class="card-text">{{post.content}}</p>
+        <div class="row">
+            <p>Posted by: <span>{{post.user.name}} on {{format_date post.date_created}}</span></p>
+            <!--<a href="#" class="btn btn-primary">comment</a>-->
+        </div>
+    </div>
+</div>
+<!--add comment-->
+<input type="hidden" id="post-id" name="post-id" value="{{post.id}}" />
+<div class="flex mx-auto w-75 items-center justify-center mt-12  mb-4 max-w-lg">
+    <form class="w-full max-w-xl bg-white rounded-lg px-4 pt-2 new-comment-form">
+        <label for="comment-body">Add a comment:</label>
+        <textarea type="text" class="form-control" id="comment-body" name="comment-body"
+            placeholder="Comment"></textarea>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary mt-3 mb-3 me-3">Submit</button>
+        </div>
+    </form>
+</div>
+</input>
+<!--render comments-->
+<!--if there is any length to-->
+{{#if post.comments.length}}
+{{#with post as | post |}}
+{{#each post.comments as |comment|}}
+<div class="media flex pb-4 col-md-6 comment-list"></div>
+<div class="comments media-body">
+    <div
+        class='items-center flex mx-auto w-75 items-center justify-center mt-12  mb-4 max-w-lg bg-info-subtle pt-2 py-3 shadow-lg rounded'>
+        <div class="m-3 row">
+            <p class=" text-base fw-bold ms-3 fs-5">{{user.name}} <span
+                    class="text-secondary fs-6 fw-normal">{{format_date comment.date_created}}</span> </p>
+            <p class="ms-3">{{comment.content}}</p>
+        </div>
+    </div>
+</div>
+</div>
+{{/each}}
+{{/with}}
+<!--{{/if}}
+{{#if post.comments.length}}
+{{#with post as | post |}}
+{{#each post.comments as |comment|}}
+      <li>
+        <p>Comment ID: {{comment.id}}</p>
+        <p>Content: {{comment.content}}</p>
+        <p>Date Created: {{comment.date_created}}</p>
+        <p>User ID: {{user.id}}</p>
+        <p>User Username: {{user.name}}</p>
+        <p>Post ID: {{post.id}}</p>
+        <p>Post Title: {{post.title}}</p>
+      </li>
+    {{/each}}
+    {{/with}}
+{{/if}}-->
+<div class="py-8"></div>
+
+<script src="/js/comment.js"></script>
