@@ -63,4 +63,4 @@ User.init(
 
 module.exports = User;
 
-//model good
+//model good!
