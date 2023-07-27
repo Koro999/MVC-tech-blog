@@ -3,7 +3,7 @@ const { Post, Comment, User } = require("../models");
 const withAuth = require("../utils/auth");
 
 //Get all posts and JOIN with user data
-router.get("/", async (req, res) => {
+router.get("/",  async (req, res) => {
   try {
     const postData = await Post.findAll({
       include: [
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
           model: User,
           attributes: ["name"],
         },
-      ]
+      ],
     });
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
@@ -31,15 +31,20 @@ router.get("/post/:id", async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
+        User,
         {
           model: User,
           attributes: ["name"],
         },
+        {
+          model: Comment,
+          include: [User]
+          //creates reference to user
+        }
       ],
     });
-
     const post = postData.get({ plain: true });
-
+    console.log(post)
     res.render("post", {
       post,
       logged_in: req.session.logged_in,

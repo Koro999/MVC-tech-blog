@@ -16,38 +16,46 @@
         <textarea type="text" class="form-control" id="comment-body" name="comment-body"
             placeholder="Comment"></textarea>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mt-3 mb-3 me-3">Submit</button>
         </div>
     </form>
 </div>
 </input>
 <!--render comments-->
 <!--if there is any length to-->
-
-<!--<div class="media flex pb-4 col-md-6 comment-list"></div>">
+{{#if post.comments.length}}
+{{#with post as | post |}}
+{{#each post.comments as |comment|}}
+<div class="media flex pb-4 col-md-6 comment-list"></div>
 <div class="comments media-body">
-    {{#each post.comment as |comments|}}
-    <div class='inline-block items-center justify-center w-full max-w-xl bg-whitepx-4 pt-2 mt-5 py-3 shadow-lg'>
-        <p class="inline-block text-base font-bold mr-2">{{comment.user.name}}</p>
-        <span class="text-slate-500">{{format_date comment.date_created}}</span>
-        <p>{{comment.content}}</p>
+    <div
+        class='items-center flex mx-auto w-75 items-center justify-center mt-12  mb-4 max-w-lg bg-info-subtle pt-2 py-3 shadow-lg rounded'>
+        <div class="m-3 row">
+            <p class=" text-base fw-bold ms-3 fs-5">{{user.name}} <span
+                    class="text-secondary fs-6 fw-normal">{{format_date comment.date_created}}</span> </p>
+            <p class="ms-3">{{comment.content}}</p>
+        </div>
     </div>
-    {{/each}}
 </div>
-</div>-->
-{{#if comments.length}}
-{{#each comments as |comment|}}
+</div>
+{{/each}}
+{{/with}}
+<!--{{/if}}
+{{#if post.comments.length}}
+{{#with post as | post |}}
+{{#each post.comments as |comment|}}
       <li>
         <p>Comment ID: {{comment.id}}</p>
         <p>Content: {{comment.content}}</p>
         <p>Date Created: {{comment.date_created}}</p>
-        <p>User ID: {{commentUser.id}}</p>
-        <p>User Username: {{comment.User.username}}</p>
-        <p>Post ID: {{comment.Post.id}}</p>
-        <p>Post Title: {{comment.Post.title}}</p>
+        <p>User ID: {{user.id}}</p>
+        <p>User Username: {{user.name}}</p>
+        <p>Post ID: {{post.id}}</p>
+        <p>Post Title: {{post.title}}</p>
       </li>
     {{/each}}
-{{/if}}
+    {{/with}}
+{{/if}}-->
 <div class="py-8"></div>
 
 <script src="/js/comment.js"></script>

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 
-<body class="bg-primary-subtle">
+<body class="bg-primary-subtle"style="padding-bottom: 100px">
     <!--DASHBOARD-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -48,18 +48,17 @@
         </div>
     </nav>
 
-    <main class="container container-fluid mt-5">
+    <main class="container container-fluid mt-5 ">
         <!-- Render the sub layout -->
         {{{ body }}}
     </main>
 
-    <footer id="footer" class="fixed-bottom bg-body-tertiary text-center">
+    <footer id="footer" class=" fixed-bottom bg-body-tertiary text-center">
         <div class=" text-center">
             © 2023 Copyright:
             <a class="nav-link " href="#"> MVC Tech Blog 2023</a>
         </div>
     </footer>
-
     <!-- Render script for logged in users only -->
     {{#if logged_in}}
     <script src="/js/logout.js"></script>
